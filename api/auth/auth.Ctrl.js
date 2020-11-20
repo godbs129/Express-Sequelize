@@ -1,5 +1,6 @@
 const models = require('../../models');
 const tokenLib = require('../../lib/token');
+const crypto = require('crypto');
 
 exports.login = async (req, res) => {
     const { body } = req;
@@ -17,10 +18,15 @@ exports.login = async (req, res) => {
             });
         }
 
+        let dbPW = user.dataValues.pw;
+        let inputPW = body.pw;
+        let salt = user.dataValues.salt;
+        let hashPW = crypto.createHash("sha512").update(inputPW + salt).digest('hex');
+
         const usera = await models.User.findOne({
             where: {
                 id: body.id,
-                pw: body.pw,
+                pw: hashPW,
             },
         });
 
@@ -60,10 +66,15 @@ exports.register = async (req, res) => {
             });
         }
 
+        let inputPW = body.pw;
+        let salt = Math.round((new Date().valueOf() + Math.random())) + "";
+        let hashPW = crypto.createHash("sha512").update(inputPW + salt).digest('hex');
+
         await models.User.create({
             id: body.id,
-            pw: body.pw,
+            pw: hashPW,
             name: body.name,
+            salt: salt
         });
 
         console.log("회원가입 성공");

@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
             field: 'name',
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        salt: {
+            type: DataTypes.STRING,
+        },
     }, {
         tableName: 'user',
         timestamps: false,
