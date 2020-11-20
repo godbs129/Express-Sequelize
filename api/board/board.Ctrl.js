@@ -109,15 +109,12 @@ exports.Updateboard = async (req, res) => {
             })
         }
 
-        await Board.update({
-            idx: board.dataValues.idx
-        },
-            {
-                where: {
-                    title: body.title,
-                    board: body.board,
-                }
-            });
+        Board.update({
+            title: body.title,
+            board: body.board,
+        }, {
+            where: { idx: body.idx }
+        });
 
         console.log("글 수정 성공\n");
         return res.status(200).json({
