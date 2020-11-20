@@ -1,4 +1,4 @@
-# Express & Sequelize
+# Express & Sequelize (클라이언트 아직 없음)
 - [x] 회원가입
 - [x] 로그인(토큰 발행)
 - [x] 비밀번호 암호화<br><br>
