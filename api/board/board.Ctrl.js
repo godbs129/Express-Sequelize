@@ -4,15 +4,18 @@ const tokenLib = require('../../lib/token');
 
 exports.Addboard = async (req, res) => {
     const { body } = req;
+    const token = req.headers['authorization'];
 
     try {
+        const decoded = await tokenLib.verifyToken(token);
+
         await Board.create({
             title: body.title,
             board: body.board,
-            id: body.id,
+            id: decoded.id,
         });
 
-        console.log("글 작성 성공");
+        console.log("글 작성 성공\n");
         return res.status(200).json({
             message: "글 작성 성공",
         });
@@ -46,7 +49,7 @@ exports.Delboard = async (req, res) => {
             }
         });
 
-        console.log("글 삭제 성공");
+        console.log("글 삭제 성공\n");
         return res.status(200).json({
             message: "글 삭제 성공",
         });
@@ -75,7 +78,7 @@ exports.Readboard = async (req, res) => {
             });
         }
 
-        console.log("글 조회 성공");
+        console.log("글 조회 성공\n");
 
         return res.status(200).json({
             board,
@@ -116,7 +119,7 @@ exports.Updateboard = async (req, res) => {
                 }
             });
 
-        console.log("글 수정 성공");
+        console.log("글 수정 성공\n");
         return res.status(200).json({
             message: '글 수정 성공',
         });

@@ -37,6 +37,7 @@ exports.login = async (req, res) => {
         }
         const token = await tokenLib.creteToken(body.id);
 
+        console.log(body.id + ' 로그인\n');
         return res.status(200).json({
             message: "로그인 성공",
             data: { 'token': token },
@@ -77,7 +78,7 @@ exports.register = async (req, res) => {
             salt: salt
         });
 
-        console.log("회원가입 성공");
+        console.log(body.id + " 회원가입 성공\n");
         return res.status(200).json({
             message: "회원가입 성공",
         });
