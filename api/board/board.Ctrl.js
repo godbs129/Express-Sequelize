@@ -109,7 +109,7 @@ exports.Updateboard = async (req, res) => {
             })
         }
 
-        Board.update({
+        await Board.update({
             title: body.title,
             board: body.board,
         }, {
