@@ -6,7 +6,7 @@ const api = require('./api');
 
 app.get('/', (req,res) => {
     res.send('Hello');
-};
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
